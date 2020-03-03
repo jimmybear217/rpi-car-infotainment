@@ -6,6 +6,7 @@ var path = require('path');
 app.get('/version', function (req, res) { res.send('v0.0.1'); });
 app.get('/', function (req, res) { res.sendFile(path.join(__dirname + '/client/index.html')); });
 app.get('/gui', function (req, res) { res.sendFile(path.join(__dirname + '/client/gui.html')); });
+app.get('/gui/partials/header', function (req, res) { res.sendFile(path.join(__dirname + '/client/partials/header.html')); });
 app.route('*').all(function (req, res) { res.setHeader("Location", "/"); res.sendStatus(303).send("Error 404") });
 
 // server
