@@ -17,7 +17,6 @@
   },
   "homepage": "https://github.com/jimmybear217/rpi-car-infotainment#readme",
   "dependencies": {
-    "angular": "^1.7.9",
     "express": "^4.17.1",
     "rpi-gpio": "^2.1.5",
     "serialport": "^8.0.7"
