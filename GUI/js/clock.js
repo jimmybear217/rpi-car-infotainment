@@ -21,6 +21,8 @@ function handleTimeChange() {
 		else
 			ampm = "AM";
 		hour = hour % 12;
+		if (hour == 0 && ampm == "PM")
+			hour = 12
 	}
 
 	// ordinal
