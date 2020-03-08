@@ -20,6 +20,8 @@ npm install # install node.js dependencies
 sudo apt-get install libdbus-1-dev
 ```
 
+>**Note**: You may need to run this program or parts of it as root in order to access the full functionalities and control it is meant to have
+
 ## Current Features
 - Nice and fluid interface (to be populated and implemented)
 - listing of WiFi networks
