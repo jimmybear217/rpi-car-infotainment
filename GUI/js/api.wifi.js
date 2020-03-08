@@ -28,7 +28,7 @@ function api_settings_wifi_handle_scan (bodyJson) {
 				wifi_connected = i;
 			}
 		}
-		wifi_list.push({"ssid": wifi.ssid, "bssid": Array.from(wifi.bssid), "frequency": wifi.frequency, "signal": wifi.signal, "age": wifi.age, "added": wifi.added})
+		wifi_list.push({"ssid": wifi.ssid, "bssid": Array.from(wifi.bssid), "frequency": wifi.frequency, "signal": wifi.signal, "age": wifi.age, "rsn": wifi.rsn, "added": wifi.added})
 		i++
 	});
 	api_setings_wifi_write_list()
@@ -105,7 +105,8 @@ function api_setings_wifi_write_list() {
 					"bssid": elem.bssid,
 					"signal": elem.signal,
 					"frequency": elem.frequency,
-					"age": elem.age
+					"age": elem.age,
+					"rsn": elem.rsn
 				}
 			}
 		}
@@ -128,9 +129,12 @@ function api_setings_wifi_write_list() {
 	visible_keys.forEach( (key) => {
 		var newElem = document.createElement("li")
 		newElem.setAttribute("data-wifi-id", visible_list[key].index)
-		newElem.innerText = visible_list[key].ssid
+		newElem.appendChild(document.createTextNode(visible_list[key].ssid));
+		var newElemValue = document.createElement("span");
+		newElemValue.className = "setting-li-value";
+		newElemValue.appendChild(document.createTextNode(visible_list[key].rsn.keyManagement.join(", ")))
+		newElem.appendChild(newElemValue)
 		ul.appendChild(newElem)
-		//console.log("appended:", newElem);
 	})
 	//console.log("hidden:", hidden_list);
 }
