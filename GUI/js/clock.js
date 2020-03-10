@@ -8,7 +8,7 @@ function handleTimeChange() {
 	var day = d.getDay()
 	var date = d.getDate();
 	var ordinal = "";
-	var MonthNum = d.getMonth();
+	var monthNum = d.getMonth();
 	var year = d.getFullYear();
 	var hour = d.getHours(); // 24 hour format
 	var minute = d.getMinutes();
@@ -38,7 +38,7 @@ function handleTimeChange() {
 				ordinal = "rd";
 				break;
 			default:
-				ordinal = "nd";
+				ordinal = "th";
 				break;
 		}
 		switch(day) {
@@ -66,13 +66,57 @@ function handleTimeChange() {
 		}
 	}
 
+	// month
+	switch (monthNum) {
+		case 0:
+			month = "January"
+			break;
+		case 1:
+			month = "February"
+			break;
+		case 2:
+			month = "March"
+			break;
+		case 3:
+			month = "April"
+			break;
+		case 4:
+			month = "May"
+			break;
+		case 5:
+			month = "June"
+			break;
+		case 6:
+			month = "July"
+			break;
+		case 7:
+			month = "August"
+			break;
+		case 8:
+			month = "September"
+			break;
+		case 9:
+			month = "October"
+			break;
+		case 10:
+			month = "November"
+			break;
+		case 11:
+			month = "December"
+			break;
+		default:
+			month = "month"
+			break;
+	}
+
 	if (document.getElementById("time-hour").innerText != hour) document.getElementById("time-hour").innerText = hour
 	if (document.getElementById("time-minute").innerText != minute) document.getElementById("time-minute").innerText = minute
 	if (document.getElementById("time-ampm").innerText != ampm) document.getElementById("time-ampm").innerText = ampm
 	if (document.getElementById("time-day").innerText != day) document.getElementById("time-day").innerText = day
+	if (document.getElementById("time-month").innerText != month) document.getElementById("time-month").innerText = month
+	if (document.getElementById("time-year").innerText != year) document.getElementById("time-year").innerText = year
 	if (document.getElementById("time-date").innerText != date) document.getElementById("time-date").innerText = date
 	if (document.getElementById("time-ordinal").innerText != ordinal) document.getElementById("time-ordinal").innerText = ordinal
-	if (document.getElementById("time-year").innerText != year) document.getElementById("time-year").innerText = year
 	if (document.getElementById("time-hour-h").innerText != hour) document.getElementById("time-hour-h").innerText = hour
 	if (document.getElementById("time-minute-h").innerText != minute) document.getElementById("time-minute-h").innerText = minute
 	if (document.getElementById("time-ampm-h").innerText != ampm) document.getElementById("time-ampm-h").innerText = ampm

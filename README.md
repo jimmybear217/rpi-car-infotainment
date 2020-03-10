@@ -10,6 +10,11 @@ everything on a raspberry pi 2.
 ## Current Features
 - Nice and fluid interface (to be populated and implemented)
 
+## TODO
+- force minutes display to 2 digits in clock header and page
+- fix ordinal letters in clock page (st, nd, rd, th)
+
+
 ## Future Features
 - System information (RPi)
 - System Control (RPi)
