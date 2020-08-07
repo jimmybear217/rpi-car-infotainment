@@ -6,10 +6,12 @@
 		<meta name="author" content="JimmyBear217">
 		<link href="css/font-ubuntu-google.css" rel="stylesheet" type="text/css">
 		<link href="css/index.css" rel="stylesheet" type="text/css">
+		<link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet' />
 		<script type="text/javascript" src="js/index.js"></script>
 		<script type="text/javascript" src="js/clock.js"></script>
 		<script type="text/javascript" src="js/api.system.js"></script>
 		<script type="text/javascript" src="js/api.wifi.js"></script>
+		<script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
 	</head>
 	<body onload="goto('menu');">
 		<header>
@@ -120,8 +122,15 @@
 				<span>settings</span>
 			</li>
 		</ul>
-		<div class="page" id="map">
-			<iframe id="map-container" src="https://www.openstreetmap.org"></iframe>
+		<div class="page" id="map">	
+			<div id="map-container"></div>
+			<script>
+				mapboxgl.accessToken = 'pk.eyJ1IjoiamltbXliZWFyMjE3IiwiYSI6ImNqb3lvZHl0eDJkZ2cza2xobHFmcTJtZHYifQ.pOPUwRnd3CovTi-Dj6CnAw';
+				var map = new mapboxgl.Map({
+					container: 'map-container',
+					style: 'mapbox://styles/mapbox/streets-v11',
+				});
+			</script>
 		</div>
 		<div class="page" id="media"><h1>media</h1><a href="javascript:goto('menu');">menu</a></div>
 		<div class="page" id="phone"><h1>phone</h1><a href="javascript:goto('menu');">menu</a></div>
