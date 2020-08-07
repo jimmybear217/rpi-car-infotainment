@@ -18,6 +18,9 @@ wifi.on('update', function () {
     //console.log("found", newList.length, "networks")
     list = newList
 })
+wifi.on('error', (err) => {
+    list = [{"error": err}];
+})
 
 exports.getList = function () {
     return JSON.stringify(list);

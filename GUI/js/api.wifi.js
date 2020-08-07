@@ -19,24 +19,35 @@ function api_settings_wifi_handle_scan (bodyJson) {
 	wifi_list = [];
 	var i = wifi_list.length;
 	wifi_connected_bssid = [];
+	var error = false
 	bodyJson.forEach(wifi => {
-		if (wifi.current == true){
-			wifi_connected_bssid = wifi.bssid;
-			wifi_connected = i;
+		if (wifi.hasOwnProperty("error")) {
+			error = wifi.error;
 		} else {
-			if (wifi_connected_bssid == wifi.bssid && wifi_connected_bssid != []) {
+			if (wifi.current == true){
+				wifi_connected_bssid = wifi.bssid;
 				wifi_connected = i;
+			} else {
+				if (wifi_connected_bssid == wifi.bssid && wifi_connected_bssid != []) {
+					wifi_connected = i;
+				}
 			}
+			wifi_list.push({"ssid": wifi.ssid, "bssid": Array.from(wifi.bssid), "frequency": wifi.frequency, "signal": wifi.signal, "age": wifi.age, "rsn": wifi.rsn, "added": wifi.added})
+			i++
 		}
-		wifi_list.push({"ssid": wifi.ssid, "bssid": Array.from(wifi.bssid), "frequency": wifi.frequency, "signal": wifi.signal, "age": wifi.age, "rsn": wifi.rsn, "added": wifi.added})
-		i++
 	});
-	api_setings_wifi_write_list()
+	api_setings_wifi_write_list(error)
 }
 
-function api_setings_wifi_write_list() {
+function api_setings_wifi_write_list(error=false) {
 	// write wifi list
-	if (wifi_connected_bssid == []){
+	if (error!=false) {
+		console.error("Unable to fetch wifi");
+		document.getElementById("img-status-wifi").style.display = "none";
+		document.getElementById("wifi-list-connected").style.display = "";
+		document.getElementById("wifi-list-connected").children[1].setAttribute("data-wifi-id", -2)
+		document.getElementById("wifi-list-connected").children[1].innerText = "Unable to use wifi"
+	} else if (wifi_connected_bssid == []){
 		wifi_connected = -1;
 		// hide connected wifi
 		console.log("not connected to any wifi", wifi_connected_bssid);
@@ -46,8 +57,8 @@ function api_setings_wifi_write_list() {
 
 		// wifi list: connected
 		document.getElementById("wifi-list-connected").style.display = "none";
-		document.getElementById("wifi-list-connected").children[0].setAttribute("data-wifi-id", wifi_connected)
-		document.getElementById("wifi-list-connected").children[0].innerText = "<not connected>"
+		document.getElementById("wifi-list-connected").children[1].setAttribute("data-wifi-id", wifi_connected)
+		document.getElementById("wifi-list-connected").children[1].innerText = "<not connected>"
 
 	} else {
 		// show connected wifi
@@ -58,11 +69,11 @@ function api_setings_wifi_write_list() {
 
 		// wifi list: connected
 		document.getElementById("wifi-list-connected").style.display = "";
-		document.getElementById("wifi-list-connected").children[0].setAttribute("data-wifi-id", wifi_connected)
+		document.getElementById("wifi-list-connected").children[1].setAttribute("data-wifi-id", wifi_connected)
 		if (wifi_list[wifi_connected]["ssid"].length > 0)
-			document.getElementById("wifi-list-connected").getElementsByTagName("li")[0].innerText = wifi_list[wifi_connected]["ssid"]
+			document.getElementById("wifi-list-connected").getElementsByTagName("li")[1].innerText = wifi_list[wifi_connected]["ssid"]
 		else {
-			document.getElementById("wifi-list-connected").getElementsByTagName("li")[0].innerText = wifi_list[wifi_connected]["bssid"].join(":")
+			document.getElementById("wifi-list-connected").getElementsByTagName("li")[1].innerText = wifi_list[wifi_connected]["bssid"].join(":")
 		}
 	}
 
